@@ -30,7 +30,13 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative px-6 pt-20">
+    <section id="home" className="min-h-screen flex items-center justify-center relative px-6 pt-20 overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
+      </div>
+      
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
           <motion.div
@@ -80,13 +86,13 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="flex gap-4 justify-center md:justify-start"
+              className="flex gap-4 justify-center md:justify-start flex-wrap"
             >
               <motion.button
                 onClick={() => scrollToSection("projects")}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(99, 179, 237, 0.5)" }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-primary text-primary-foreground rounded-full font-semibold hover:shadow-lg hover:glow-primary transition-all"
+                className="px-8 py-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-primary-foreground rounded-full font-semibold shadow-lg transition-all"
               >
                 View Projects
               </motion.button>
@@ -94,7 +100,7 @@ const Hero = () => {
                 onClick={() => scrollToSection("connect")}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 border border-border rounded-full font-semibold hover:bg-secondary transition-all"
+                className="px-8 py-4 glass-card rounded-full font-semibold hover:border-primary/50 transition-all"
               >
                 Let's Connect
               </motion.button>
@@ -107,13 +113,15 @@ const Hero = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="flex-shrink-0"
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full blur-2xl opacity-30 animate-glow" />
-              <img
-                src={profileImage}
-                alt="Yugal Chandak"
-                className="relative w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-primary/20"
-              />
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition-all duration-500 animate-glow" />
+              <div className="relative p-2 bg-background rounded-full">
+                <img
+                  src={profileImage}
+                  alt="Yugal Chandak"
+                  className="relative w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-2 border-primary/30"
+                />
+              </div>
             </div>
           </motion.div>
         </div>

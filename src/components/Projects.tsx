@@ -60,21 +60,32 @@ const Projects = () => {
       : projects.filter((project) => project.tags.includes(selectedTag));
 
   return (
-    <section id="projects" className="py-20 px-6">
-      <div className="container mx-auto">
+    <section id="projects" className="py-20 px-6 relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-purple-950/5 to-background -z-10" />
+      
+      <div className="container mx-auto max-w-7xl">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-5xl md:text-6xl font-bold mb-4">
             Featured <span className="text-gradient">Projects</span>
           </h2>
-          <p className="text-muted-foreground text-lg mb-8">
-            A curated selection of projects that reflect my commitment to simplicity and purposeful design
-          </p>
+          <div className="relative inline-block mb-8">
+            <p className="text-muted-foreground text-lg mb-2">
+              A curated selection of projects showcasing innovation and design
+            </p>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={inView ? { width: "100%" } : {}}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full mx-auto"
+            />
+          </div>
 
           <div className="flex flex-wrap justify-center gap-4">
             {allTags.map((tag) => (
@@ -83,10 +94,10 @@ const Projects = () => {
                 onClick={() => setSelectedTag(tag)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-6 py-2 rounded-full font-semibold transition-all ${
+                className={`px-6 py-3 rounded-full font-semibold transition-all ${
                   selectedTag === tag
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-secondary hover:bg-secondary/80"
+                    ? "bg-gradient-to-r from-cyan-400 to-blue-500 text-primary-foreground shadow-[0_0_20px_rgba(99,179,237,0.4)]"
+                    : "glass-card hover:border-primary/50"
                 }`}
               >
                 {tag}
@@ -102,7 +113,8 @@ const Projects = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative bg-card border border-border rounded-xl overflow-hidden hover:border-primary/50 transition-all"
+              whileHover={{ y: -10 }}
+              className="group relative glass-card rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,179,237,0.3)] transition-all"
             >
               <div className="relative h-64 overflow-hidden">
                 <img

@@ -30,21 +30,32 @@ const Experience = () => {
   });
 
   return (
-    <section className="py-20 px-6 bg-secondary/20">
-      <div className="container mx-auto">
+    <section className="py-20 px-6 relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background -z-10" />
+      
+      <div className="container mx-auto max-w-7xl">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-5xl md:text-6xl font-bold mb-4">
             What I <span className="text-gradient">Do</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
-            My expertise and focus areas
-          </p>
+          <div className="relative inline-block">
+            <p className="text-muted-foreground text-lg mb-2">
+              My expertise and focus areas
+            </p>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={inView ? { width: "100%" } : {}}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full mx-auto"
+            />
+          </div>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -54,12 +65,13 @@ const Experience = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="relative group"
+              whileHover={{ y: -10 }}
+              className="relative group h-full"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative bg-card border border-border rounded-xl p-8 hover:border-primary/50 transition-all h-full">
-                <div className="p-4 bg-primary/10 rounded-lg w-fit mb-6 group-hover:scale-110 transition-transform">
-                  <exp.icon className="text-primary" size={32} />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+              <div className="relative glass-card rounded-2xl p-8 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,179,237,0.3)] transition-all h-full">
+                <div className="p-5 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl w-fit mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <exp.icon className="text-primary" size={36} />
                 </div>
 
                 <h3 className="text-2xl font-bold mb-3">{exp.title}</h3>
