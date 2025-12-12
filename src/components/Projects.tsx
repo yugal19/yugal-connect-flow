@@ -1,180 +1,165 @@
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { useState } from "react";
-import { ExternalLink, Github } from "lucide-react";
+import React from "react";
+import { Github } from "lucide-react";
+
 import projectAI from "@/assets/project-ai.jpg";
-import projectAPI from "@/assets/project-api.jpg";
-import projectSatellite from "@/assets/project-satellite.jpg";
-import projectVoice from "@/assets/project-voice.jpg";
+import projectAPI from "@/assets/RAG.png";
+import projectSatellite from "@/assets/voice.jpg";
+import AiAgent from "@/assets/AI_Agent.png";
+import projectVoice from "@/assets/voice_agent.webp";
 
 const projects = [
   {
-    title: "Autonomous Code Review AI",
-    description: "Real-time GitHub-integrated AI assistant that reviews code, suggests improvements, and maintains code quality standards across repositories.",
+    title: "Josby",
+    description:
+      "A real-time job finder across LinkedIn & Naukri with automated AI filtering.",
     image: projectAI,
-    tags: ["AI", "Backend", "GitHub API"],
-    tech: ["Python", "FastAPI", "OpenAI", "LangChain", "MongoDB"],
+    tech: [
+      "Python",
+      "FastAPI",
+      "GeminiAPI",
+      "BeautifulSoup",
+      "Scraping",
+      "MongoDB",
+    ],
     github: "https://github.com",
-    live: "https://example.com",
   },
   {
-    title: "Voice-Controlled Browser Extension",
-    description: "Accessibility-focused browser extension with FastAPI backend enabling hands-free web navigation through voice commands.",
+    title: "Voice Agent",
+    description:
+      "A voice-based agent capable of receiving calls and answering user queries live.",
     image: projectVoice,
-    tags: ["Backend", "AI", "Accessibility"],
-    tech: ["FastAPI", "Speech Recognition", "JavaScript", "Chrome Extension"],
-    github: "https://github.com",
-    live: "https://example.com",
+    tech: ["FastAPI", "Speech Recognition", "LiveKit", "Twilio"],
+    github: "https://github.com/yugal19/livekit-voice-agent",
   },
   {
-    title: "AI RAG Pipeline with LanceDB",
-    description: "High-performance document retrieval system using RAG architecture with vector embeddings for semantic search and intelligent query responses.",
+    title: "AI RAG Pipeline",
+    description:
+      "A high-performance RAG pipeline using LanceDB for semantic search and fast document retrieval.",
     image: projectAPI,
-    tags: ["AI", "Backend", "Database"],
-    tech: ["Python", "LanceDB", "OpenAI", "Vector Embeddings"],
-    github: "https://github.com",
+    tech: ["Python", "LanceDB", "Gemini API", "Embeddings"],
+    github: "https://github.com/yugal19/rag-implementation",
   },
   {
-    title: "Satellite Change Detection System",
-    description: "Multi-temporal satellite image analysis system using computer vision to detect environmental changes and generate insights.",
+    title: "Agentic ChatBot",
+    description: "An intelligent chatbot with autonomous search using Tavily.",
+    image: AiAgent,
+    tech: ["Python", "GeminiAPI", "Tavily Search"],
+    github: "https://github.com/yugal19/AI-Agentic-Chatbot-Repo",
+  },
+  {
+    title: "Voice Desktop Automation",
+    description:
+      "Hands-free desktop automation powered by a voice-controlled MCP agent.",
     image: projectSatellite,
-    tags: ["AI", "Computer Vision"],
-    tech: ["Python", "OpenCV", "TensorFlow", "Satellite Imagery"],
-    github: "https://github.com",
+    tech: ["Python", "Deepgram", "MCP Server", "subprocess"],
+    github: "https://github.com/yugal19/desktop-automation",
   },
 ];
 
-const allTags = ["All", "AI", "Backend", "Tools", "Frontend"];
-
-const Projects = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const [selectedTag, setSelectedTag] = useState("All");
-
-  const filteredProjects =
-    selectedTag === "All"
-      ? projects
-      : projects.filter((project) => project.tags.includes(selectedTag));
-
+export default function Projects() {
   return (
-    <section id="projects" className="py-20 px-6 relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-purple-950/5 to-background -z-10" />
-      
-      <div className="container mx-auto max-w-7xl">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            Featured <span className="text-gradient">Projects</span>
-          </h2>
-          <div className="relative inline-block mb-8">
-            <p className="text-muted-foreground text-lg mb-2">
-              A curated selection of projects showcasing innovation and design
-            </p>
-            <motion.div
-              initial={{ width: 0 }}
-              animate={inView ? { width: "100%" } : {}}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full mx-auto"
-            />
-          </div>
+    <section id="projects" className="py-20 px-6 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/10 to-background -z-10" />
 
-          <div className="flex flex-wrap justify-center gap-4">
-            {allTags.map((tag) => (
-              <motion.button
-                key={tag}
-                onClick={() => setSelectedTag(tag)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-6 py-3 rounded-full font-semibold transition-all ${
-                  selectedTag === tag
-                    ? "bg-gradient-to-r from-cyan-400 to-blue-500 text-primary-foreground shadow-[0_0_20px_rgba(99,179,237,0.4)]"
-                    : "glass-card hover:border-primary/50"
-                }`}
-              >
-                {tag}
-              </motion.button>
-            ))}
-          </div>
-        </motion.div>
+      <div className="text-center mb-16">
+        <h2 className="text-6xl font-extrabold font-jakarta mb-4">
+          Featured <span className="text-gradient">Projects</span>
+        </h2>
+        <p className="text-muted-foreground text-xl max-w-2xl mx-auto font-medium">
+          A curated selection of projects blending AI, engineering, and clean
+          system design.
+        </p>
+        <div className="mt-6 h-1 w-56 mx-auto bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full" />
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {filteredProjects.map((project, index) => (
-            <motion.div
+      <div className="container mx-auto max-w-7xl space-y-24">
+        {projects.map((project, index) => {
+          const isLeft = index % 2 === 0;
+
+          return (
+            // .group must wrap both image and panel so group-hover works
+            <div
               key={project.title}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="group relative glass-card rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,179,237,0.3)] transition-all"
+              className={`group relative flex flex-col md:flex-row items-start gap-12 ${
+                !isLeft ? "md:flex-row-reverse" : ""
+              }`}
             >
-              <div className="relative h-64 overflow-hidden">
+              {/* IMAGE (left or right depending on zig-zag) */}
+              <div className="relative w-full md:w-1/2 h-[420px] md:h-[460px] rounded-2xl overflow-hidden border border-border shadow-lg">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-              </div>
 
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-foreground/80 mb-4">{project.description}</p>
+                {/* two separate boxes inside the image, same corner */}
+                <div
+                  className={`absolute bottom-4 flex items-center gap-4 ${
+                    isLeft ? "left-4" : "right-4"
+                  }`}
+                >
+                  {/* Project name box (bright purple gradient) */}
+                  <div className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-violet-700 text-white font-semibold text-lg shadow-lg">
+                    {project.title}
+                  </div>
 
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-secondary text-foreground/80 text-sm rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex gap-4">
-                  <motion.a
+                  {/* GitHub box (bright cyan-blue) */}
+                  <a
                     href={project.github}
                     target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-all"
+                    rel="noreferrer"
+                    className="p-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-white shadow-lg hover:opacity-90 transition"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <Github size={18} />
-                    Code
-                  </motion.a>
-                  {project.live && (
-                    <motion.a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:shadow-lg hover:glow-primary transition-all"
-                    >
-                      <ExternalLink size={18} />
-                      Live Demo
-                    </motion.a>
-                  )}
+                  </a>
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
+
+              {/* SLIDE-OUT PANEL: occupies the other half (same size as image) */}
+              {/* initial state: translated fully off toward its originating image side */}
+              {/* on group-hover it translates to 0 and becomes visible */}
+              <div
+                className={`
+                  w-full md:w-1/2
+                  flex items-center justify-center
+                  /* visual styling */
+                  bg-card border border-border rounded-2xl shadow-lg p-8
+
+                  /* initial  state */
+                  opacity-0 pointer-events-none
+
+                  /* translation and hover show */
+                  transition-transform  duration-500 ease-out
+                  ${
+                    isLeft
+                      ? "translate-x-12 group-hover:translate-x-0"
+                      : "-translate-x-12 group-hover:-translate-x-0"
+                  }
+                  group-hover:opacity-100 group-hover:pointer-events-auto
+                `}
+              >
+                <div className="max-w-xl">
+                  <p className="text-neutral-300 text-lg leading-relaxed mb-6">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 rounded-full bg-secondary text-muted-foreground text-sm font-semibold border border-border"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
-};
-
-export default Projects;
+}

@@ -6,18 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from "emailjs-com";
 
 const socialLinks = [
   {
     icon: Github,
     label: "GitHub",
-    href: "https://github.com",
+    href: "https://github.com/yugal19",
     color: "hover:text-white",
   },
   {
     icon: Linkedin,
     label: "LinkedIn",
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/in/yugal-chandak-25b993285/",
     color: "hover:text-blue-500",
   },
   {
@@ -29,10 +30,14 @@ const socialLinks = [
   {
     icon: Mail,
     label: "Email",
-    href: "mailto:yugal@example.com",
+    href: "mailto:yugalchandak19@gmail.com",
     color: "hover:text-red-400",
   },
 ];
+
+const SERVICE_ID = "vault_sec";
+const TEMPLATE_ID = "template_ws9lw2e"; // <- You can rename based on EmailJS template
+const PUBLIC_KEY = "JlaAcZzaylyYl--Pj";
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -41,6 +46,8 @@ const Contact = () => {
   });
 
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -49,18 +56,39 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent! 🚀",
-      description: "Thanks for reaching out! I'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", message: "" });
+    setLoading(true);
+
+    const payload = {
+      from_name: formData.name,
+      from_email: formData.email,
+      from_message: formData.message,
+    };
+
+    emailjs
+      .send(SERVICE_ID, TEMPLATE_ID, payload, PUBLIC_KEY)
+      .then(() => {
+        toast({
+          title: "Message Sent! 🚀",
+          description: "Thanks for reaching out! I’ll get back to you soon.",
+        });
+
+        setFormData({ name: "", email: "", message: "" });
+      })
+      .catch(() => {
+        toast({
+          title: "Error ❌",
+          description:
+            "Something went wrong while sending your message. Try again!",
+          variant: "destructive",
+        });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
     <section id="connect" className="py-20 px-6 relative overflow-hidden">
-      {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-purple-950/10 to-background -z-10" />
-      
+
       <div className="container mx-auto max-w-5xl">
         <motion.div
           ref={ref}
@@ -70,22 +98,24 @@ const Contact = () => {
           className="text-center mb-20"
         >
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            Let's <span className="text-gradient">Connect</span>
+            Let’s <span className="text-gradient">Connect</span>
           </h2>
-          <div className="relative inline-block">
-            <p className="text-muted-foreground text-lg mb-2">
-              Let's build something amazing together! Reach out to collaborate or just say hi 👋
-            </p>
-            <motion.div
-              initial={{ width: 0 }}
-              animate={inView ? { width: "100%" } : {}}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full mx-auto"
-            />
-          </div>
+
+          <p className="text-muted-foreground text-lg mb-2">
+            Let's build something amazing together! Reach out to collaborate or
+            just say hi 👋
+          </p>
+
+          <motion.div
+            initial={{ width: 0 }}
+            animate={inView ? { width: "100%" } : {}}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full mx-auto"
+          />
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12">
+          {/* LEFT SIDE */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -95,40 +125,31 @@ const Contact = () => {
             <div className="glass-card rounded-2xl p-8">
               <h3 className="text-2xl font-bold mb-6">Get In Touch</h3>
               <p className="text-foreground/80 mb-8">
-                I'm always open to discussing new projects, creative ideas, or opportunities to be
-                part of your visions. Feel free to reach out through any of these platforms:
+                I'm always open to discussing new projects, creative ideas, and
+                opportunities to be a part of.
               </p>
 
               <div className="flex gap-4 mb-8">
                 {socialLinks.map((social) => (
-                  <motion.a
+                  <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.2, rotate: 5, boxShadow: "0 0 20px rgba(99, 179, 237, 0.5)" }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`p-4 glass-card rounded-xl transition-all ${social.color}`}
+                    className={`p-3 glass-card rounded-lg transition-all ${social.color}`}
                     aria-label={social.label}
                   >
-                    <social.icon size={24} />
-                  </motion.a>
+                    <social.icon
+                      size={18}
+                      className="opacity-80 hover:opacity-100"
+                    />
+                  </a>
                 ))}
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-foreground/80">
-                  <Mail className="text-primary" size={20} />
-                  <span>yugal@example.com</span>
-                </div>
-                <div className="flex items-center gap-3 text-foreground/80">
-                  <Github className="text-primary" size={20} />
-                  <span>github.com/yugalchandak</span>
-                </div>
               </div>
             </div>
           </motion.div>
 
+          {/* RIGHT SIDE — FORM */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -138,73 +159,59 @@ const Contact = () => {
               onSubmit={handleSubmit}
               className="glass-card rounded-2xl p-8 space-y-6"
             >
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-2">
-                Name
-              </label>
-              <Input
-                id="name"
-                type="text"
-                placeholder="Your name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
-                className="bg-card border-border focus:border-primary"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Name</label>
+                <Input
+                  type="text"
+                  placeholder="Your name"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  required
+                />
+              </div>
 
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
-                Email
-              </label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="your.email@example.com"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-                className="bg-card border-border focus:border-primary"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Email</label>
+                <Input
+                  type="email"
+                  placeholder="your.email@example.com"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  required
+                />
+              </div>
 
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-2">
-                Message
-              </label>
-              <Textarea
-                id="message"
-                placeholder="Tell me about your project or just say hello..."
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                required
-                rows={5}
-                className="bg-card border-border focus:border-primary resize-none"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Message
+                </label>
+                <Textarea
+                  placeholder="Tell me about your project..."
+                  value={formData.message}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
+                  rows={5}
+                  required
+                />
+              </div>
 
               <Button
                 type="submit"
+                disabled={loading}
                 className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-primary-foreground hover:shadow-[0_0_30px_rgba(99,179,237,0.5)] transition-all"
               >
                 <Send size={18} className="mr-2" />
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </motion.div>
         </div>
       </div>
-
-      <motion.footer
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : {}}
-        transition={{ delay: 1 }}
-        className="text-center mt-20 pt-8 border-t border-border"
-      >
-        <p className="text-muted-foreground">
-          Designed & Built by <span className="text-gradient font-semibold">Yugal Chandak</span> © 2025
-        </p>
-      </motion.footer>
     </section>
   );
 };

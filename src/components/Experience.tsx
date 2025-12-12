@@ -1,95 +1,119 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Briefcase, Code2, Brain } from "lucide-react";
+import { Lightbulb, Code2, Brain } from "lucide-react";
 
 const experiences = [
   {
     icon: Code2,
-    title: "Backend Developer",
-    description: "Building scalable REST APIs with FastAPI, MongoDB, and PostgreSQL",
-    skills: ["FastAPI", "MongoDB", "PostgreSQL", "Docker"],
+    title: "Backend & Systems",
+    description:
+      "Enjoy creating reliable backend systems, APIs, and infrastructure that scale smoothly.",
+    skills: ["FastAPI", "Databases", "Docker", "Cloud"],
   },
   {
     icon: Brain,
-    title: "AI Engineer",
-    description: "Developing RAG pipelines, autonomous agents, and computer vision systems",
-    skills: ["RAG", "LangChain", "OpenAI", "Computer Vision"],
+    title: "AI & Intelligent Systems",
+    description:
+      "Integrating AI with real products—from RAG pipelines to autonomous agents.",
+    skills: ["LLMs", "Voice-Agents", "MCP servers"],
   },
   {
-    icon: Briefcase,
-    title: "Full-Stack Integration",
-    description: "Connecting AI capabilities with modern web applications",
-    skills: ["API Design", "WebSockets", "Real-time Systems", "Cloud Deployment"],
+    icon: Lightbulb,
+    title: "Problem Solver",
+    description:
+      "Love turning problems into solutions that are simple, reliable, and built to scale.",
+    skills: ["System Design", "Debugging", "Problem Breakdown"],
   },
 ];
 
 const Experience = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   return (
-    <section className="py-20 px-6 relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background -z-10" />
-      
-      <div className="container mx-auto max-w-7xl">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
-        >
-          <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            What I <span className="text-gradient">Do</span>
-          </h2>
-          <div className="relative inline-block">
-            <p className="text-muted-foreground text-lg mb-2">
-              My expertise and focus areas
-            </p>
-            <motion.div
-              initial={{ width: 0 }}
-              animate={inView ? { width: "100%" } : {}}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full mx-auto"
-            />
-          </div>
-        </motion.div>
+    <section className="py-32 px-6 relative overflow-hidden h-screen flex items-center">
+      {/* Background */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background via-background/40 to-background" />
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={exp.title}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              whileHover={{ y: -10 }}
-              className="relative group h-full"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
-              <div className="relative glass-card rounded-2xl p-8 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(99,179,237,0.3)] transition-all h-full">
-                <div className="p-5 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl w-fit mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <exp.icon className="text-primary" size={36} />
-                </div>
+      <div className="container mx-auto max-w-6xl">
+        {/* Header */}
+        <h2 className="text-5xl md:text-6xl font-bold mb-4 text-center">
+          What I{" "}
+          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-400 bg-clip-text text-transparent">
+            Do
+          </span>
+        </h2>
 
-                <h3 className="text-2xl font-bold mb-3">{exp.title}</h3>
-                <p className="text-foreground/80 mb-6">{exp.description}</p>
+        <p className="text-muted-foreground text-lg text-center mb-16">
+          The areas I enjoy working in
+        </p>
 
-                <div className="flex flex-wrap gap-2">
-                  {exp.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full border border-primary/20"
+        {/* Centered Cards */}
+        <div className="grid md:grid-cols-3 gap-8 justify-center items-center">
+          {experiences.map((exp, index) => {
+            const [ref, inView] = useInView({
+              triggerOnce: true, // 🔥 animation runs ONCE only
+              threshold: 0.3,
+            });
+
+            return (
+              <motion.div
+                key={exp.title}
+                ref={ref}
+                initial={{ x: -200, opacity: 0 }} // 🔥 come from LEFT
+                animate={inView ? { x: 0, opacity: 1 } : {}}
+                transition={{
+                  duration: 0.8,
+                  ease: "easeOut",
+                  delay: index * 0.25,
+                }}
+                className="relative group h-full"
+              >
+                {/* Glow */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr blur-xl opacity-0 transition-all duration-500" />
+
+                {/* Card */}
+                <div
+                  className="
+                  relative rounded-2xl p-8 
+                  bg-[#0e121b]/80 backdrop-blur-xl
+                  border border-purple-700/20 
+                  group-hover:border-purple-400
+                  shadow-[0_8px_25px_rgba(0,0,0,0.45)]
+                  transition-all duration-300
+                  flex flex-col justify-between
+                  min-h-[420px]
+                "
+                >
+                  {/* Top */}
+                  <div>
+                    <div
+                      className="p-5 rounded-xl mb-6 bg-gradient-to-br 
+                      from-purple-600/20
+                      border border-purple-700/30"
                     >
-                      {skill}
-                    </span>
-                  ))}
+                      <exp.icon className="text-purple-200" size={36} />
+                    </div>
+
+                    <h3 className="text-2xl font-bold mb-3 text-purple-200">
+                      {exp.title}
+                    </h3>
+
+                    <p className="text-gray-300">{exp.description}</p>
+                  </div>
+
+                  {/* Skills */}
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {exp.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="px-3 py-1 text-sm rounded-full border border-purple-200/30 text-purple-200"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

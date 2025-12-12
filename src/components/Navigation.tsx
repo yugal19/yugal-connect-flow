@@ -26,18 +26,20 @@ const Navigation = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/80 backdrop-blur-lg border-b border-border" : "bg-transparent"
+        isScrolled
+          ? "bg-background/80 backdrop-blur-lg border-b border-border"
+          : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-6 py-4 ">
         <div className="flex items-center justify-between">
           <motion.button
             onClick={() => scrollToSection("home")}
-            className="text-xl font-bold text-gradient cursor-pointer"
+            className="text-xl font-bold text-violet-300 cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            YC
+            Yugal Chandak
           </motion.button>
 
           <div className="flex gap-8">
