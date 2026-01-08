@@ -22,7 +22,7 @@ const Hero = () => {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-  const name = "Yugal Chandak"
+  const name = "Yugal Chandak";
 
   return (
     <section
@@ -117,7 +117,7 @@ const Hero = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-7 py-3 text-lg flex items-center gap-2 bg-gradient-to-r from-purple-500 to-cyan-500 text-white rounded-full shadow-lg font-semibold"
+                className="px-7 py-3 text-lg flex items-center gap-2 bg-purple-500   text-white rounded-full shadow-lg font-semibold"
               >
                 <Github size={22} /> GitHub
               </motion.a>

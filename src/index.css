@@ -183,3 +183,36 @@ All colors MUST be HSL.
     transform: translateX(-60vw);
   }
 }
+
+.hover-effect-purple [data-aceternity-hover] {
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(168, 85, 247, 0.25),
+    transparent 40%
+  );
+}
+
+@keyframes projectLine {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.animate-projectLine {
+  animation: projectLine 2.5s ease-in-out infinite;
+}
+
+.beam {
+  background: linear-gradient(180deg, #18ccfc, #6344f5, #ae48ff);
+}
